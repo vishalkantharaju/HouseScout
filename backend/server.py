@@ -4,7 +4,7 @@ from api.v1.ambulance import ambulance_bp
 from api.v1.hospital import hospital_bp
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}) 
 
 app.register_blueprint(ambulance_bp, url_prefix="/api/v1/ambulance")
 app.register_blueprint(hospital_bp, url_prefix="/api/v1/hospital")
