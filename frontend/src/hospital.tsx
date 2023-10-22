@@ -56,9 +56,67 @@ export default function Hospital() {
 
       }
     // State to store car positions
-    const [carPosition_1, setCarPosition_1] = useState([
+    const [carPosition1, setCarPosition1] = useState([
         { lat: startingLat, lng: startingLong }, // Example car position
     ]);
+
+    // Function to update car positions randomly
+    const updateCarPositions = () => {
+        // Update car positions randomly, e.g., within a specified range
+        const newCarPositions = carPosition1.map((position) => ({
+            lat: position.lat + (Math.random() - 0.5) * 0.01, // Adjust the range for latitude
+            lng: position.lng + (Math.random() - 0.5) * 0.01, // Adjust the range for longitude
+        }));
+        setCarPosition1(newCarPositions);
+    };
+    // Use useEffect to start the interval when the component mounts
+    useEffect(() => {
+        const intervalId = setInterval(updateCarPositions, 2000); // Update every 2 seconds
+        return () => clearInterval(intervalId); // Cleanup on unmount
+    }, []);
+
+
+    // State to store car positions
+    const [carPosition2, setCarPosition2] = useState([
+        { lat: startingLat + 0.02, lng: startingLong + 0.02}, // Example car position
+    ]);
+
+    // Function to update car positions randomly
+    const updateCarPositions2 = () => {
+        // Update car positions randomly, e.g., within a specified range
+        const newCarPositions = carPosition2.map((position) => ({
+            lat: position.lat + (Math.random() - 0.5) * 0.01, // Adjust the range for latitude
+            lng: position.lng + (Math.random() - 0.5) * 0.01, // Adjust the range for longitude
+        }));
+        setCarPosition2(newCarPositions);
+    };
+    // Use useEffect to start the interval when the component mounts
+    useEffect(() => {
+        const intervalId = setInterval(updateCarPositions2, 2000); // Update every 2 seconds
+        return () => clearInterval(intervalId); // Cleanup on unmount
+    }, []);
+
+
+    
+    // State to store car positions
+    const [carPosition4, setCarPosition4] = useState([
+        { lat: startingLat - 0.002, lng: startingLong - 0.002}, // Example car position
+    ]);
+
+    // Function to update car positions randomly
+    const updateCarPosition4 = () => {
+        // Update car positions randomly, e.g., within a specified range
+        const newCarPositions = carPosition4.map((position) => ({
+            lat: position.lat + (Math.random() - 0.5) * 0.01, // Adjust the range for latitude
+            lng: position.lng + (Math.random() - 0.5) * 0.01, // Adjust the range for longitude
+        }));
+        setCarPosition4(newCarPositions);
+    };
+    // Use useEffect to start the interval when the component mounts
+    useEffect(() => {
+        const intervalId = setInterval(updateCarPosition4, 2000); // Update every 2 seconds
+        return () => clearInterval(intervalId); // Cleanup on unmount
+    }, []);
 
     useEffect(() => {
         const queryString = window.location.search;
@@ -194,7 +252,27 @@ export default function Hospital() {
                             zoom={13}
                             options={mapOptions}
                         >
-                        {now && carPosition_1.map((position, index) => (
+                        {now && carPosition1.map((position, index) => (
+                                <Marker
+                                    key={index}
+                                    position={position}
+                                    icon={{
+                                        url: amb_icon,
+                                        scaledSize: new google.maps.Size(60, 40),
+                                    }}
+                                />
+                            ))}
+                        {now && carPosition2.map((position, index) => (
+                                <Marker
+                                    key={index}
+                                    position={position}
+                                    icon={{
+                                        url: amb_icon,
+                                        scaledSize: new google.maps.Size(60, 40),
+                                    }}
+                                />
+                            ))}
+                        {now && carPosition4.map((position, index) => (
                                 <Marker
                                     key={index}
                                     position={position}
