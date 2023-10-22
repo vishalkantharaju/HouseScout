@@ -22,6 +22,17 @@ interface AmbHolder {
     ambulances: Array<GetAmbulanceResponse>
 }
 
+interface GetReportResponse {
+    gender: string,
+    age: number,
+    heart_rate: number,
+    resp_rate: number,
+    sp: number,
+    bp: Array<number>,
+    bs: number,
+    sample: string
+}
+
 export default function Hospital() {
     const mapRef = useRef<google.maps.Map | null>(null);
     const [data, setData] = useState<null | Array<GetAmbulanceResponse>>(null);
@@ -183,6 +194,28 @@ export default function Hospital() {
             return 'orange';
         }
     }
+    function getReport(id : string) {
+        fetch(
+                'http://localhost:5000' + `/api/v1/report/fetch?id=${id}`, {
+                  method: 'GET',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                }
+              )
+              .then(response => response.json() as Promise<GetReportResponse>)
+              .then(data => {
+                console.log(data)
+                // setOrganizationData(data.clubs)
+                // setFilteredData(data.clubs)
+                // if (data.clubs.length == 0) {
+                //     setNoResults(true)
+                // }
+              })
+              .catch(error => {
+                console.error('Error fetching data:', error);
+              });
+    }
 
     return (
         <div className='max-w-screen max-h-screen'>
@@ -204,7 +237,7 @@ export default function Hospital() {
                     <div className='px-6 overflow-hidden bg-[#080E4B] '>
                         {data && Array.isArray(data) &&
                         data.map((item, index) => (
-                            <div className='rounded-xl my-3 w-full bg-gradient-to-r from-[#DF059C] via-[#7749C1] to-[#00B1FF] p-[4px]  '  key={index}>
+                            <div className='rounded-xl my-3 w-full bg-gradient-to-r from-[#DF059C] via-[#7749C1] to-[#00B1FF] p-[4px]'  key={index}>
                                 <div className='flex h-fit bg-black rounded-lg px-0 py-0'>
                                     <div className='flex w-full drop-shadow-lg  rounded-lg p-4 bg-white'>
                                         <div className='w-20 justify-center p-2 items-center flex'>
@@ -224,7 +257,7 @@ export default function Hospital() {
                                             </div>
                                             <div className='flex text-sm mt-2'>
                                                 {item.reported && (
-                                                    <div className='rounded-xl p-1 px-2 border-[1px] cursor-pointer hover:scale-105 active:scale-95 flex'>
+                                                    <div className='rounded-xl p-1 px-2 border-[1px] cursor-pointer hover:scale-105 active:scale-95 flex' onClick={() => {getReport(item.id)}}>
                                                         <Download size={18}/>
                                                         <p className='ml-1'>Condition</p>
                                                     </div>

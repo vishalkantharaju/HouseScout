@@ -17,3 +17,16 @@ class NewReportRequest(BaseModel):
 
 class NewReportResponse(GeneralResponse):
     id: PydanticObjectId
+
+class GetReportRequest(BaseModel):
+    id: str
+
+class GetReportResponse(GeneralResponse):
+    gender: str
+    age: int
+    heart_rate: int
+    resp_rate: int
+    sp: int
+    bp: List[int]
+    bs: int
+    sample: str

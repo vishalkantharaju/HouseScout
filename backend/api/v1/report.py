@@ -6,7 +6,7 @@ from flask_cors import cross_origin
 import shared.db.model as db_model
 from shared.types.status import ErrorResponse
 from flask_pydantic import validate
-from shared.types.report import NewReportRequest, NewReportResponse
+from shared.types.report import NewReportRequest, NewReportResponse, GetReportRequest, GetReportResponse
 from shared.db.schema import ReportSchema
 from bson import ObjectId
 
@@ -25,5 +25,19 @@ class NewReport(MethodView):
         db_model.set_reported(id = ObjectId(body.ambulance_id))
         return jsonify(Resp.dict()), 201
 
+class FetchReport(MethodView):
+    @cross_origin(headers=["Content-Type", "Authorization"])
+    @validate()
+    def get(self, query : GetReportRequest) -> Tuple[Response, int]:
+        print('asas')
+        response, err = db_model.fetch_report(query.id)
+        # print('asas')
+        if err is not None:
+            return jsonify(dict(ErrorResponse(err=err))), 404
+        # print('asas')
+        resp = GetReportResponse(**response.dict(), success=True)
+        return jsonify(dict(resp)), 200
+
 
 report_bp.add_url_rule("/create", view_func=NewReport.as_view("create"), methods=["POST"])
+report_bp.add_url_rule("/fetch", view_func=FetchReport.as_view("fetch"), methods=["GET"])

@@ -248,3 +248,15 @@ def set_reported(id : ObjectId) -> Tuple[str, str]:
     update = {"$set": {"reported": True}}
     result = db.ambulances.update_one(filter, update)
     return "", None
+
+def fetch_report(id: ObjectId) -> Tuple[ReportSchema, str]:
+    document = db.reports.find_one({"ambulance_id": str(id)})
+
+    # print('asas31312')
+    if document:
+        # document['hospital_id'] = ObjectId(document['hospital_id'])
+        document['ambulance_id'] = ObjectId(document['ambulance_id'])
+        resp = ReportSchema(**document)
+        return resp, None
+    else:
+        return None, "Login failed"
