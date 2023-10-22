@@ -194,6 +194,8 @@ export default function Hospital() {
             return 'orange';
         }
     }
+    const [display, setDis] = useState(false);
+    const [date, setDate] = useState<null | GetReportResponse>(null);
     function getReport(id : string) {
         fetch(
                 'http://localhost:5000' + `/api/v1/report/fetch?id=${id}`, {
@@ -206,6 +208,7 @@ export default function Hospital() {
               .then(response => response.json() as Promise<GetReportResponse>)
               .then(data => {
                 console.log(data)
+                setDate(data)
                 // setOrganizationData(data.clubs)
                 // setFilteredData(data.clubs)
                 // if (data.clubs.length == 0) {
