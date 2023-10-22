@@ -40,7 +40,7 @@ export default function Hospital() {
     };
     useEffect(() => {
         myAsyncFunction();
-    })
+    }, [])
     function sleep(ms: number): Promise<void> {
         return new Promise((resolve) => {
           setTimeout(resolve, ms);
@@ -59,6 +59,14 @@ export default function Hospital() {
     const [carPosition_1, setCarPosition_1] = useState([
         { lat: startingLat, lng: startingLong }, // Example car position
     ]);
+
+    function getTime(status: string) {
+        if (status === 'Arrived') {
+            return 0;
+        } else {
+            return Math.floor(Math.random() * 99) + 1;
+        }
+    }
 
     useEffect(() => {
         const queryString = window.location.search;
@@ -144,7 +152,7 @@ export default function Hospital() {
                                     <div className='flex w-full drop-shadow-lg  rounded-lg p-4 bg-white'>
                                         <div className='w-20 justify-center p-2 items-center flex'>
                                             <div>
-                                                <p className='w-full text-center text-3xl'>14</p>
+                                                <p className='w-full text-center text-3xl'>{getTime(item.status)}</p>
                                                 <p>minutes</p>
                                             </div>
                                         </div>
