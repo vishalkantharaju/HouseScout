@@ -1,6 +1,7 @@
 import ambulance from './assets/medhelp_icon_transparent.png'
+import amb_icon from './assets/amb_icon.png'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface GetAmbulanceResponse {
@@ -30,6 +31,11 @@ export default function Hospital() {
           map.panTo(startingLocation);
         }
     };
+
+    // State to store car positions
+    const [carPosition_1, setCarPosition_1] = useState([
+        { lat: startingLat, lng: startingLong }, // Example car position
+    ]);
 
     useEffect(() => {
         const queryString = window.location.search;
@@ -101,21 +107,30 @@ export default function Hospital() {
                         hihi
                     </div>
                     <div>
-                        j
                     </div>
                 </div>
                 <div className='h-screen pt-16 w-2/3'> 
-                    {/* <LoadScript googleMapsApiKey={mapsKey}>
+                    <LoadScript googleMapsApiKey={mapsKey}>
                         <GoogleMap
                             mapContainerStyle={containerStyle}
                             center={{ lat: startingLat, lng: startingLong }}
                             zoom={13}
                             options={mapOptions}
-                        > */}
+                        >
+                        {/* {carPosition_1.map((position, index) => (
+                                <Marker
+                                    key={index}
+                                    position={position}
+                                    icon={{
+                                        url: amb_icon,
+                                        scaledSize: new google.maps.Size(60, 40),
+                                    }}
+                                />
+                            ))} */}
                             {/* Your map content, markers, etc. go here */}
-                        {/* </GoogleMap> */}
+                        </GoogleMap>
                         {/* <button className='absolute' onClick={resetToStartingLocation}>Return to Starting Location</button> */}
-                    {/* </LoadScript> */}
+                    </LoadScript>
                 </div>
             </div>
         </div>

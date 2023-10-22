@@ -1,4 +1,4 @@
-import ambulance from './assets/medhelp_icon_transparent.png'
+import ambulance from './assets/amb_icon.png'
 import { Input } from "@/components/ui/input"
 import React, { useState } from 'react';
 
@@ -61,7 +61,7 @@ export default function Ambulance() {
         };
 
         fetch(
-            'http://127.0.0.1:5000/ambulance/report', {
+            'http://127.0.0.1:5000/report/create', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
