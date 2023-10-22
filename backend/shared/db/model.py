@@ -201,3 +201,11 @@ def populate_ambulances() -> Tuple[str, str]:
 
 def delete_ambulances() -> Tuple[str, str]:
     db.ambulances.delete_many({})
+
+def login_hospital(username: str, password: str) -> Tuple[HospitalSchema, str]:
+    document = db.hospitals.find_one({"username": username, "password": password})
+    if document:
+        resp = HospitalSchema(**document)
+        return resp, None
+    else:
+        return None, "Login failed"

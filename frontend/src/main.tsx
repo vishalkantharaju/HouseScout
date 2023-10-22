@@ -6,6 +6,7 @@ import Ambulance from './ambulance.tsx'
 import Hospital from './hospital.tsx'
 import './index.css'
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import {Toaster} from './components/ui/toaster.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/ambulance" Component={Ambulance} />
           <Route path="/hospital" Component={Hospital} />
         </Routes>
+        <Toaster/>
     </Router>
   </React.StrictMode>,
 )
