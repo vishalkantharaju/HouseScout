@@ -21,7 +21,8 @@ class NewReport(MethodView):
         _id, err = db_model.add_report(report)
         if err is not None:
             return jsonify(dict(ErrorResponse(err=err))), 400
-        Resp = NewReportResponse(id=ObjectId(_id), success=True)
+        Resp = NewReportResponse(id=ObjectId(), success=True)
+        db_model.set_reported(id = ObjectId(body.ambulance_id))
         return jsonify(Resp.dict()), 201
 
 

@@ -242,3 +242,9 @@ def login_ambulance(username: str, password: str) -> Tuple[HospitalSchema, str]:
 def add_report(report: ReportSchema) -> Tuple[str, str]:
     db.reports.insert_one(report.dict())
     return '', None
+
+def set_reported(id : ObjectId) -> Tuple[str, str]:
+    filter = {"_id": id}
+    update = {"$set": {"reported": True}}
+    result = db.ambulances.update_one(filter, update)
+    return "", None
