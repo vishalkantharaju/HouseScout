@@ -4,7 +4,8 @@ from shared.constants import DB_USERNAME, DB_PASSWORD
 from shared.db.schema import (
     AmbulanceSchema,
     LocationSchema,
-    HospitalSchema
+    HospitalSchema,
+    ReportSchema
 )
 from typing import List, Tuple
 from pymongo.errors import PyMongoError
@@ -237,3 +238,7 @@ def login_ambulance(username: str, password: str) -> Tuple[HospitalSchema, str]:
         return resp, None
     else:
         return None, "Login failed"
+
+def add_report(report: ReportSchema) -> Tuple[str, str]:
+    db.reports.insert_one(report.dict())
+    return '', None
