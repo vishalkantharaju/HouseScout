@@ -16,7 +16,7 @@ export default function Login() {
                     </p>
                 </div>
             </div>
-            <div className='border-black border-2 h-full bg-[url("assets/layered-waves-haikei-5.svg")] h-fit bg-no-repeat bg-cover bg-bottom flex items-center justify-center'>
+            <div className='border-black border-2 h-full bg-[url("assets/layered-waves-haikei-5.svg")] min-h-screen h-fit bg-no-repeat bg-cover bg-bottom flex items-center justify-center'>
                 <div className='bg-white h-fit pb-8 w-96 rounded-xl shadow-lg slide-in-up my-36 z-0'>
                     <div className='flex w-full border-b-2 h-16'>
                         <div style={{backgroundColor: `${user == 'Hospital' ? '#e63eb2' : ''}`}} className='w-1/2 items-center justify-center flex cursor-pointer hover:bg-[#f28fd4] transition-bg rounded-tl-xl hover:rounded-tl-xl'>
