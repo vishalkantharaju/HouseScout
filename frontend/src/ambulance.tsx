@@ -1,9 +1,52 @@
 import ambulance from './assets/medhelp_icon_transparent.png'
 import { Input } from "@/components/ui/input"
+import React, { useState } from 'react';
 
 export default function Ambulance() {
+
+    // Data from Hospital
     const hospital = "Dell Children's Hospital";
     const ETA = 14;
+
+    // Data from EMT
+    const [gender, setGender] = useState<string>('');
+    const [heartRate, setHeartRate] = useState<string>('');
+    const [bloodPressure, setBloodPressure] = useState<string>('');
+    const [age, setAge] = useState<string>('');
+    const [respRate, setRespRate] = useState<string>('');
+    const [glucose, setGlucose] = useState<string>('');
+    const [spo, setSpo] = useState<string>('');
+    const [sam, setSAM] = useState<string>('');
+    const [ple, setPLE] = useState<string>('');
+
+    const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setGender(event.target.value);
+    };
+    const handleHeartRateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setHeartRate(event.target.value);
+    };
+    const handleBloodPressureChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setBloodPressure(event.target.value);
+    };
+    const handleAgeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setAge(event.target.value);
+    };
+    const handleRespRateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setRespRate(event.target.value);
+    };
+    const handleGlucoseChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setGlucose(event.target.value);
+    };
+    const handleSpoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSpo(event.target.value);
+    };
+    const handleSAMChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSAM(event.target.value);
+    };
+    const handlePLEChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPLE(event.target.value);
+    };
+
     return (
         <div className='max-w-screen max-h-screen'>
 
@@ -45,19 +88,19 @@ export default function Ambulance() {
                             <div className="font-bold text-m bg-clip-text text-transparent bg-[#0F284C]">
                                 <p>Gender</p>
                             </div>
-                            <Input placeholder='Gender' className='mt-2 w-36 h-7'></Input>
+                            <Input placeholder='Gender' value={gender} onChange={handleGenderChange} className='mt-2 w-36 h-7'></Input>
 
                             {/* Heart Rate */}
                             <div className="mt-3 font-bold text-m bg-clip-text text-transparent bg-[#0F284C]">
                                 <p>Heart Rate</p>
                             </div>
-                            <Input placeholder='HR' className='mt-2 w-36 h-7'></Input>
+                            <Input placeholder='HR' value={heartRate} onChange={handleHeartRateChange} className='mt-2 w-36 h-7'></Input>
 
                             {/* Blood Pressure */}
                             <div className="mt-3 font-bold text-m bg-clip-text text-transparent bg-[#0F284C]">
                                 <p>Blood Pressure</p>
                             </div>
-                            <Input placeholder='BP' className='mt-2 w-36 h-7'></Input>
+                            <Input placeholder='BP' value={bloodPressure} onChange={handleBloodPressureChange} className='mt-2 w-36 h-7'></Input>
                         </div>
 
                         {/* Middle Inputs */}
@@ -66,19 +109,19 @@ export default function Ambulance() {
                             <div className="font-bold text-m bg-clip-text text-transparent bg-[#0F284C]">
                                 <p>Age</p>
                             </div>
-                            <Input placeholder='Age' className='mt-2 w-36 h-7'></Input>
+                            <Input placeholder='Age' value={age} onChange={handleAgeChange} className='mt-2 w-36 h-7'></Input>
 
                             {/* Respiratory Rate */}
                             <div className="mt-3 font-bold text-m bg-clip-text text-transparent bg-[#0F284C]">
                                 <p>Resp Rate</p>
                             </div>
-                            <Input placeholder='BR' className='mt-2 w-36 h-7'></Input>
+                            <Input placeholder='BR' value={respRate} onChange={handleRespRateChange} className='mt-2 w-36 h-7'></Input>
 
                             {/* Blood Glucose */}
                             <div className="mt-3 font-bold text-m bg-clip-text text-transparent bg-[#0F284C]">
                                 <p>Blood Glucose</p>
                             </div>
-                            <Input placeholder='BG' className='mt-2 w-36 h-7'></Input>
+                            <Input placeholder='BG' value={glucose} onChange={handleGlucoseChange} className='mt-2 w-36 h-7'></Input>
                         </div>
 
                         {/* Right Inputs */}
@@ -87,19 +130,19 @@ export default function Ambulance() {
                             <div className="font-bold text-m bg-clip-text text-transparent bg-[#0F284C]">
                                 <p>SPO2</p>
                             </div>
-                            <Input placeholder='SPO2' className='mt-2 w-36 h-7'></Input>
+                            <Input placeholder='SPO2' value={spo} onChange={handleSpoChange} className='mt-2 w-36 h-7'></Input>
 
                             {/* Symp, Allergies, Meds*/}
                             <div className="mt-3 font-bold text-m bg-clip-text text-transparent bg-[#0F284C]">
                                 <p>Symp, Allergies, Meds</p>
                             </div>
-                            <Input placeholder='SAM' className='mt-2 w-36 h-7'></Input>
+                            <Input placeholder='SAM' value={sam} onChange={handleSAMChange} className='mt-2 w-36 h-7'></Input>
 
                             {/* History, Intake, Events */}
                             <div className="mt-3 font-bold text-m bg-clip-text text-transparent bg-[#0F284C]">
                                 <p>History, Intake, Events</p>
                             </div>
-                            <Input placeholder='PLE' className='mt-2 w-36 h-7'></Input>
+                            <Input placeholder='PLE' value={ple} onChange={handlePLEChange} className='mt-2 w-36 h-7'></Input>
                         </div>
                         </div>
                     {/* Send button */}
