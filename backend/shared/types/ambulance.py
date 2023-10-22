@@ -18,3 +18,11 @@ class GetAmbResponse(BaseModel):
 
 class GetAmbulanceResponse(GeneralResponse):
     ambulances: List[GetAmbResponse]
+
+class AmbulanceLoginRequest(BaseModel):
+    username: str
+    password: str
+
+class AmbulanceLoginResponse(GeneralResponse):
+    id: str
+    hospital_id: str

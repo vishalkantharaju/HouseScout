@@ -4,7 +4,8 @@ from shared.constants import DB_USERNAME, DB_PASSWORD
 from shared.db.schema import (
     AmbulanceSchema,
     LocationSchema,
-    HospitalSchema
+    HospitalSchema,
+    ReportSchema
 )
 from typing import List, Tuple
 from pymongo.errors import PyMongoError
@@ -225,3 +226,25 @@ def get_ambulances(id: ObjectId) -> Tuple[List[AmbulanceSchema], str]:
         return ambulances, None
     else:
         return None, "Error"
+
+def login_ambulance(username: str, password: str) -> Tuple[HospitalSchema, str]:
+    # print('ddad')
+    document = db.ambulances.find_one({"$and": [{"username": username}, {"password": password}]})
+
+    # print('asas31312')
+    if document:
+        document['hospital_id'] = ObjectId(document['hospital_id'])
+        resp = AmbulanceSchema(**document)
+        return resp, None
+    else:
+        return None, "Login failed"
+
+def add_report(report: ReportSchema) -> Tuple[str, str]:
+    db.reports.insert_one(report.dict())
+    return '', None
+
+def set_reported(id : ObjectId) -> Tuple[str, str]:
+    filter = {"_id": id}
+    update = {"$set": {"reported": True}}
+    result = db.ambulances.update_one(filter, update)
+    return "", None

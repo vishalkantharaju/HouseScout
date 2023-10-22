@@ -45,10 +45,6 @@ class HospitalSchema(DatabaseSchema):
     username: str
     password: str
 
-class BloodPressureSchema(BaseModel):
-    sys: int
-    dia: int
-
 class ReportSchema(DatabaseSchema):
     id: Optional[PydanticObjectId] = Field(alias="_id")
     ambulance_id: PydanticObjectId
@@ -57,7 +53,7 @@ class ReportSchema(DatabaseSchema):
     heart_rate: int
     resp_rate: int
     sp: int
-    bp: BloodPressureSchema
+    bp: List[int]
     bs: int
     sample: str
 
