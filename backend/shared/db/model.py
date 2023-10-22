@@ -16,11 +16,6 @@ from bson.objectid import ObjectId
 from datetime import datetime
 
 MONGO_URI = (
-    f"mongodb+srv://{DB_USERNAME}:{DB_PASSWORD}@clubhub.fvsrgft.mongodb.net/"
-)
-db = MongoClient(MONGO_URI)["dev"]
-
-MONGO_URI = (
     # f"mongodb+srv://{DB_USERNAME}:{DB_PASSWORD}@clubhub.fvsrgft.mongodb.net/"
     f"mongodb+srv://{DB_USERNAME}:{DB_PASSWORD}@medhelp2.llhvl69.mongodb.net/?retryWrites=true&w=majority"
 )
@@ -203,9 +198,30 @@ def delete_ambulances() -> Tuple[str, str]:
     db.ambulances.delete_many({})
 
 def login_hospital(username: str, password: str) -> Tuple[HospitalSchema, str]:
-    document = db.hospitals.find_one({"username": username, "password": password})
+    # print('ddad')
+    document = db.hospitals.find_one({"$and": [{"username": username}, {"password": password}]})
+
+    # print('asas31312')
     if document:
         resp = HospitalSchema(**document)
         return resp, None
     else:
         return None, "Login failed"
+    
+def get_ambulances(id: ObjectId) -> Tuple[List[AmbulanceSchema], str]:
+    query = {"hospital_id": id}
+
+    # Query the database using the find method.
+    cursor = db.ambulances.find(query)
+
+    if cursor:
+        ambulances = []
+
+        for ambulance_doc in cursor:
+            ambulance_doc['hospital_id'] = ObjectId(ambulance_doc['hospital_id'])
+            ambulance = AmbulanceSchema(**ambulance_doc)
+            ambulances.append(ambulance)
+
+        return ambulances, None
+    else:
+        return None, "Error"

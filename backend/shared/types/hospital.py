@@ -9,4 +9,4 @@ class HospitalLoginRequest(BaseModel):
     password: str
 
 class HospitalLoginResponse(GeneralResponse):
-    id: PydanticObjectId
+    id: str

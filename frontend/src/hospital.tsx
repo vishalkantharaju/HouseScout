@@ -1,12 +1,27 @@
 import ambulance from './assets/medhelp_icon_transparent.png'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+interface GetAmbulanceResponse {
+    id: string,
+    date_created: Date,
+    date_modified: Date,
+    unit: number,
+    loc: Array<number>,
+    status: string,
+    hospital_id: string,
+    historical_data: number,
+    reported: boolean
+}
 
 export default function Hospital() {
     const mapRef = useRef<google.maps.Map | null>(null);;
 
     const startingLat = 30.302822;
     const startingLong = -97.706475;
+
+    const nav = useNavigate();
 
     const resetToStartingLocation = () => {
         if (mapRef.current) {
@@ -15,6 +30,45 @@ export default function Hospital() {
           map.panTo(startingLocation);
         }
     };
+
+    useEffect(() => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        
+        const searchValue = urlParams.get('id')
+        if (!searchValue) {
+            nav('/login')
+        } else {
+            fetch(
+                'http://localhost:5000' + `/api/v1/ambulance/list?id=${searchValue}`, {
+                  method: 'GET',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                }
+              )
+              .then(response => response.json() as Promise<GetAmbulanceResponse>)
+              .then(data => {
+                // if (data.success) {
+                //     nav(`/hospital?id=${data.id}`)
+                // } else {
+                //     toast({
+                //         title: "Wrong credentials entered!",
+                //         description: "Please try again.",
+                //     })
+                // }
+                console.log(data)
+                // setOrganizationData(data.clubs)
+                // setFilteredData(data.clubs)
+                // if (data.clubs.length == 0) {
+                //     setNoResults(true)
+                // }
+              })
+              .catch(error => {
+                console.error('Error fetching data:', error);
+              });
+        }
+    }, [])
 
     const mapsKey = 'AIzaSyDaqXZbNjupisUXM6JumLd-ekhXgIf5P5w';
 

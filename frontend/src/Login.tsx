@@ -2,9 +2,12 @@ import ambulance from './assets/medhelp_icon_transparent.png'
 import { Input } from "@/components/ui/input"
 import { useState } from 'react'
 import { useToast } from "@/components/ui/use-toast"
+import { useNavigate } from 'react-router-dom';
 
 interface HospitalLoginResponse {
-    id: string
+    id: string,
+    err: string,
+    success: boolean
 }
 
 
@@ -13,6 +16,7 @@ export default function Login() {
     const [usery, setUsername] = useState<string>('');
     const [passy, setPassword] = useState<string>('');
     const { toast } = useToast();
+    const nav = useNavigate();
 
     const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(event.target.value);
@@ -31,7 +35,7 @@ export default function Login() {
             return;
         } else if (user == 'Hospital') {
             fetch(
-                'http://127.0.0.1:5000' + `/api/v1/hospital/login?fakeusery=${usery}&fakepassy=${passy}`, {
+                'http://localhost:5000' + `/api/v1/hospital/login?username=${usery}&password=${passy}`, {
                   method: 'GET',
                   headers: {
                     'Content-Type': 'application/json',
@@ -40,7 +44,17 @@ export default function Login() {
               )
               .then(response => response.json() as Promise<HospitalLoginResponse>)
               .then(data => {
-                console.log(data)
+                if (data.success) {
+                    const url = `/hospital?id=${data.id}`;
+                    console.log(url);
+                    nav(url);
+                } else {
+                    toast({
+                        title: "Wrong credentials entered!",
+                        description: "Please try again.",
+                    })
+                }
+                // console.log(data)
                 // setOrganizationData(data.clubs)
                 // setFilteredData(data.clubs)
                 // if (data.clubs.length == 0) {

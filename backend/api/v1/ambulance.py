@@ -5,8 +5,8 @@ from datetime import datetime
 from flask_cors import cross_origin
 import shared.db.model as db_model
 from shared.types.status import ErrorResponse
-# from flask_pydantic import validate
-# from shared.types.ambulance import CreateClubRequest, CreateClubResponse, GetClubQuery, GetClubResponse, SearchClubQuery, SearchClubResponse, SearchClubInfo, GetPopularQuery, GetPopularInfo,  GetPopularResponse, GetTaggedQuery
+from flask_pydantic import validate
+from shared.types.ambulance import GetAmbulanceRequest, GetAmbulanceResponse, GetAmbResponse
 from shared.db.schema import AmbulanceSchema
 from bson import ObjectId
 
@@ -44,10 +44,29 @@ class DeleteAmbulance(MethodView):
         # return jsonify(Resp.dict()), 201
         return "Success", "Hi"
 
-# class AmbulanceList(MethodView):
-#     def get(self) ->
+class AmbulanceList(MethodView):
+    @cross_origin(headers=["Content-Type", "Authorization"])
+    @validate()
+    def get(self, query : GetAmbulanceRequest)  -> Tuple[Response, int]:
+        # print('asas')
+        response, err = db_model.get_ambulances(query.id)
+        # # print('asas')
+        if err is not None:
+            return jsonify(dict(ErrorResponse(err=err))), 404
+        # # print('asas')
+        resp = []
+        for club in response:
+            club.hospital_id = ObjectId(club.hospital_id)
+            club.id = str(club.id)
+            club.history = str(club.history)
+            resp.append((GetAmbResponse(id=str(club.id), unit = club.unit, loc = [club.loc.x, club.loc.y], status = club.status, hospital_id = str(club.hospital_id), history = club.history, reported = club.reported, ))) 
+
+        # print(resp)
+        resp = GetAmbulanceResponse(ambulances = resp, success=True).dict()
+        return jsonify(resp), 200
     
 
 
 ambulance_bp.add_url_rule("/populate", view_func=PopulateAmbulance.as_view("populate"), methods=["GET"])
 ambulance_bp.add_url_rule("/delete", view_func=DeleteAmbulance.as_view("delete"), methods=["GET"])
+ambulance_bp.add_url_rule("/list", view_func=AmbulanceList.as_view("list"), methods=['GET'])
