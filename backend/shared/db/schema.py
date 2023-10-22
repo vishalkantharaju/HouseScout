@@ -30,14 +30,20 @@ class LocationSchema(BaseModel):
 
 class AmbulanceSchema(DatabaseSchema):
     id: Optional[PydanticObjectId] = Field(alias="_id")
+    unit: int
     loc: LocationSchema
     status: str
     hospital_id: PydanticObjectId
     history: bytes
     reported: bool
+    username: str
+    password: str
 
 class HospitalSchema(DatabaseSchema):
     id: Optional[PydanticObjectId] = Field(alias="_id")
+    name: str
+    username: str
+    password: str
 
 class BloodPressureSchema(BaseModel):
     sys: int

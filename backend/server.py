@@ -1,13 +1,14 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from api.v1.ambulance import ambulance_bp
 
 app = Flask(__name__)
 CORS(app)
 
-# app.register_blueprint(user_bp, url_prefix="/api/v1/user")
-# app.register_blueprint(assets_bp, url_prefix="/api/v1/assets")
-# app.register_blueprint(book_bp, url_prefix="/api/v1/book")
-# app.register_blueprint(page_bp, url_prefix="/api/v1/page")
+app.register_blueprint(ambulance_bp, url_prefix="/api/v1/ambulance")
+# app.register_blueprint(hospital_bp, url_prefix="/api/v1/hospital")
+# app.register_blueprint(message_bp, url_prefix="/api/v1/message")
+# app.register_blueprint(report_bp, url_prefix="/api/v1/report")
 
 @app.errorhandler(413)
 def page_not_found(error):
