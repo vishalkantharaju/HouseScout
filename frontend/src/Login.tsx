@@ -17,7 +17,7 @@ export default function Login() {
                 </div>
             </div>
             <div className='border-black border-2 h-full bg-[url("assets/layered-waves-haikei-5.svg")] h-screen bg-no-repeat bg-cover bg-bottom flex items-center justify-center'>
-                <div className='bg-white h-fit pb-8 w-96 rounded-xl shadow-lg slide-in-up'>
+                <div className='bg-white h-fit pb-8 w-96 rounded-xl shadow-lg slide-in-up my-24'>
                     <div className='flex w-full border-b-2 h-16'>
                         <div style={{backgroundColor: `${user == 'Hospital' ? '#e63eb2' : ''}`}} className='w-1/2 items-center justify-center flex cursor-pointer hover:bg-[#f28fd4] transition-bg rounded-tl-xl hover:rounded-tl-xl'>
                             <p onClick={() => {setUser('Hospital')}} className='w-full h-full items-center flex justify-center font-bold text-xl active:scale-90'>
@@ -25,7 +25,7 @@ export default function Login() {
                             </p>
                         </div>
                         <div className='border-[1px]'></div>
-                        <div style={{backgroundColor: `${user == 'EMS' ? '#4ac8ff' : ''}`}} className='w-1/2 items-center justify-center flex cursor-pointer hover:bg-[#87daff] hover:rounded-tr-xl transition-bg rounded-tr-xl'>
+                        <div style={{backgroundColor: `${user == 'EMS' ? '#33c1ff' : ''}`}} className='w-1/2 items-center justify-center flex cursor-pointer hover:bg-[#87daff] hover:rounded-tr-xl transition-bg rounded-tr-xl'>
                             <p onClick={() => {setUser('EMS')}} className='w-full h-full items-center flex justify-center font-bold text-xl active:scale-90'>
                                 EMS
                             </p>
@@ -53,7 +53,7 @@ export default function Login() {
                         </div>
                     </div>
                     <div className='w-full flex justify-center align-center mt-8'>
-                        <div className='border-2 border-black px-6 py-2 rounded-xl cursor-pointer hover:scale-105 transition-all active:scale-95 hover:bg-[#bfa4eb]'>
+                        <div className='border-2 border-black px-6 py-2 rounded-xl cursor-pointer hover:scale-105 transition-all active:scale-95 hover:bg-[#bfa4eb] active:bg-[#946ad9]'>
                             Login
                         </div>
                     </div>
