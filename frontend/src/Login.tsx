@@ -8,7 +8,7 @@ export default function Login() {
     
     return (
         <div className='max-w-screen max-h-screen'>
-            <div className="w-full h-16 bg-gradient-to-r from-[#DF059C] via-[#7749C1] to-[#00B1FF] fixed">
+            <div className="w-full h-16 bg-gradient-to-r from-[#DF059C] via-[#7749C1] to-[#00B1FF] fixed z-10">
                 <div className='flex items-center justify-start h-full pl-12'>
                     <img className='w-20 h-12' src={ambulance}></img>
                     <p className = 'font-bold text-2xl text-white'>
@@ -16,8 +16,8 @@ export default function Login() {
                     </p>
                 </div>
             </div>
-            <div className='border-black border-2 h-full bg-[url("assets/layered-waves-haikei-5.svg")] h-screen bg-no-repeat bg-cover bg-bottom flex items-center justify-center'>
-                <div className='bg-white h-fit pb-8 w-96 rounded-xl shadow-lg slide-in-up my-24'>
+            <div className='border-black border-2 h-full bg-[url("assets/layered-waves-haikei-5.svg")] h-fit bg-no-repeat bg-cover bg-bottom flex items-center justify-center'>
+                <div className='bg-white h-fit pb-8 w-96 rounded-xl shadow-lg slide-in-up my-36 z-0'>
                     <div className='flex w-full border-b-2 h-16'>
                         <div style={{backgroundColor: `${user == 'Hospital' ? '#e63eb2' : ''}`}} className='w-1/2 items-center justify-center flex cursor-pointer hover:bg-[#f28fd4] transition-bg rounded-tl-xl hover:rounded-tl-xl'>
                             <p onClick={() => {setUser('Hospital')}} className='w-full h-full items-center flex justify-center font-bold text-xl active:scale-90'>
