@@ -24,7 +24,7 @@ function App() {
       <div>
         <div className='bg-[url("assets/ambulance_background.jpg")] bg-cover bg-center bg-no-repeat w-full h-screen'>
           <div className="bg-[#06101E] bg-opacity-60 w-full h-screen flex">
-            <div className='pl-20 flex align-center'>
+            <div className='pl-20 flex items-center justify-center'>
               <div> 
                 {/* Transforming Healthcare */}
               <div className = 'font-bold text-5xl mt-40 h-16 bg-clip-text text-transparent bg-gradient-to-r from-[#DF059C] via-[#7749C1] to-[#00B1FF]'>
@@ -47,7 +47,7 @@ function App() {
           
           {/* Side image */}
           <div/>
-            <img className='w-100% h-100% scale-100 rotate-1 mx-auto mb-24 ml-30 mt-20' src={health_icon}></img>
+            <img className='w-100% h-100% scale-100 rotate-1 mx-auto mb-24 ml-30 mt-28' src={health_icon}></img>
           </div>
         </div>
       </div>
