@@ -47,6 +47,41 @@ export default function Ambulance() {
         setPLE(event.target.value);
     };
 
+    function send_report() {
+        const data = {
+            gender,
+            heartRate,
+            bloodPressure,
+            age,
+            respRate,
+            glucose,
+            spo,
+            sam,
+            ple
+        };
+
+        fetch(
+            'http://127.0.0.1:5000/ambulance/report', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data), // Convert data to JSON
+            }
+          )
+          .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log(data)
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
+    }
     return (
         <div className='max-w-screen max-h-screen'>
 
@@ -147,13 +182,15 @@ export default function Ambulance() {
                         </div>
                     {/* Send button */}
                     <div className = 'flex justify-center'>
-                        <div className="w-36 h-12 mt-8 rounded-lg bg-[#0F284C] flex items-center justify-center cursor-pointer hover:bg-blue-700">
+                        <div onClick={send_report} className="w-36 h-12 mt-8 rounded-lg bg-[#0F284C] flex items-center justify-center cursor-pointer hover:bg-blue-700">
                             <div className="text-white text-2xl font-bold text-center pb-1">Send</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        {/* Receive Records & Chat */}
         <div className="flex mt-14 pt-16 w-5/12 flex-col">
             <div className = "ml-40 mt-28 w-56">
                 <div className="cursor-pointer hover:bg-[#00B1FF] flex h-28 border-4 border-[#00B1FF] bg-[#CCD6E1] rounded-lg items-center justify-center">
