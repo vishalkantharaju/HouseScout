@@ -43,6 +43,9 @@ class DeleteAmbulance(MethodView):
         # Resp = CreateClubResponse(id=ObjectId(_id), success=True)
         # return jsonify(Resp.dict()), 201
         return "Success", "Hi"
+
+# class AmbulanceList(MethodView):
+#     def get(self) ->
     
 
 
