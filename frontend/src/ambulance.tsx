@@ -35,10 +35,10 @@ export default function Ambulance() {
 
                 {/* Vitals Box */}
                 <div className="w-full h-full bg-[#FFFF] mt-5 mb-5 w-11/12 h-full rounded-lg flex flex-col">
-                    <div className="font-bold text-2xl text-[#0F284C] text-center mt-3">
+                    <div className="font-bold text-2xl text-[#0F284C] text-center mt-6">
                         <p>Send Vitals</p>
                     </div>
-                    <div className = "flex">
+                    <div className = "flex mt-7 ml-3">
                         {/* Right Inputs */}
                         <div className="flex flex-col h-full ml-16 mt-2 ">
                             {/* Gender */}
@@ -102,9 +102,9 @@ export default function Ambulance() {
                             <Input placeholder='PLE' className='mt-2 w-36 h-7'></Input>
                         </div>
                         </div>
-                    {/* Sign in button */}
+                    {/* Send button */}
                     <div className = 'flex justify-center'>
-                        <div className="w-36 h-12 mt-5 rounded-lg bg-[#0F284C] flex items-center justify-center cursor-pointer hover:bg-blue-700">
+                        <div className="w-36 h-12 mt-8 rounded-lg bg-[#0F284C] flex items-center justify-center cursor-pointer hover:bg-blue-700">
                             <div className="text-white text-2xl font-bold text-center pb-1">Send</div>
                         </div>
                     </div>
