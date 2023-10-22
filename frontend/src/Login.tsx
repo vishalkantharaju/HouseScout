@@ -64,6 +64,37 @@ export default function Login() {
               .catch(error => {
                 console.error('Error fetching data:', error);
               });
+        } else if (user == 'EMS') {
+            fetch(
+                'http://localhost:5000' + `/api/v1/ambulance/login?username=${usery}&password=${passy}`, {
+                  method: 'GET',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                }
+              )
+              .then(response => response.json() as Promise<HospitalLoginResponse>)
+              .then(data => {
+                if (data.success) {
+                    const url = `/ambulance?id=${data.id}`;
+                    // console.log(url);
+                    nav(url);
+                } else {
+                    toast({
+                        title: "Wrong credentials entered!",
+                        description: "Please try again.",
+                    })
+                }
+                // console.log(data)
+                // setOrganizationData(data.clubs)
+                // setFilteredData(data.clubs)
+                // if (data.clubs.length == 0) {
+                //     setNoResults(true)
+                // }
+              })
+              .catch(error => {
+                console.error('Error fetching data:', error);
+              });
         }
 
     }

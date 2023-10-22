@@ -1,12 +1,51 @@
 import ambulance from './assets/medhelp_icon_transparent.png'
 import { Input } from "@/components/ui/input"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Ambulance() {
 
     // Data from Hospital
     const hospital = "Dell Children's Hospital";
     const ETA = 14;
+
+    const nav = useNavigate();
+
+    useEffect(() => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        
+        const searchValue = urlParams.get('id')
+        if (!searchValue) {
+            nav('/login')
+        } else {
+        //     fetch(
+        //         'http://localhost:5000' + `/api/v1/ambulance/list?id=${searchValue}`, {
+        //           method: 'GET',
+        //           headers: {
+        //             'Content-Type': 'application/json',
+        //           },
+        //         }
+        //       )
+        //       .then(response => response.json() as Promise<AmbHolder>)
+        //       .then(data => {
+        //         // if (data.success) {
+        //         //     nav(`/hospital?id=${data.id}`)
+        //         // } else {
+        //         //     toast({
+        //         //         title: "Wrong credentials entered!",
+        //         //         description: "Please try again.",
+        //         //     })
+        //         // }
+        //         // console.log(data.ambulances)
+        //         setData(data.ambulances);
+        //         // console.log('done')
+        //       })
+        //       .catch(error => {
+        //         console.error('Error fetching data:', error);
+        //       });
+        }
+    }, [])
 
     // Data from EMT
     const [gender, setGender] = useState<string>('');
@@ -88,7 +127,7 @@ export default function Ambulance() {
         {/* Navbar */}
         <div className="w-full border h-16 bg-gradient-to-r from-[#DF059C] via-[#7749C1] to-[#00B1FF] fixed">
           <div className='flex items-center justify-between h-full pl-12 pr-4'>
-            <div className='flex items-center'>
+            <div className='flex items-center hover:cursor-pointer' onClick={() => {nav('/')}}>
               <img className='w-20 h-12' src={ambulance} alt="Ambulance" />
               <p className='font-bold text-2xl text-white'>MedHelp</p>
             </div>

@@ -6,7 +6,7 @@ from flask_cors import cross_origin
 import shared.db.model as db_model
 from shared.types.status import ErrorResponse
 from flask_pydantic import validate
-from shared.types.ambulance import GetAmbulanceRequest, GetAmbulanceResponse, GetAmbResponse
+from shared.types.ambulance import GetAmbulanceRequest, GetAmbulanceResponse, GetAmbResponse, AmbulanceLoginRequest, AmbulanceLoginResponse
 from shared.db.schema import AmbulanceSchema
 from bson import ObjectId
 
@@ -64,8 +64,19 @@ class AmbulanceList(MethodView):
         resp = GetAmbulanceResponse(ambulances = resp, success=True).dict()
         return jsonify(resp), 200
     
-
+class VerifyAmbulance(MethodView):
+    @cross_origin(headers=["Content-Type", "Authorization"])
+    @validate()
+    def get(self, query : AmbulanceLoginRequest) -> Tuple[Response, int]:
+        response, err = db_model.login_ambulance(query.username, query.password)
+        # print('asas')
+        if err is not None:
+            return jsonify(dict(ErrorResponse(err=err))), 404
+        # print('asas')
+        resp = AmbulanceLoginResponse(**response.dict(), success=True)
+        return jsonify(dict(resp)), 200
 
 ambulance_bp.add_url_rule("/populate", view_func=PopulateAmbulance.as_view("populate"), methods=["GET"])
 ambulance_bp.add_url_rule("/delete", view_func=DeleteAmbulance.as_view("delete"), methods=["GET"])
 ambulance_bp.add_url_rule("/list", view_func=AmbulanceList.as_view("list"), methods=['GET'])
+ambulance_bp.add_url_rule("/login", view_func=VerifyAmbulance.as_view("login"), methods=['GET'])

@@ -225,3 +225,15 @@ def get_ambulances(id: ObjectId) -> Tuple[List[AmbulanceSchema], str]:
         return ambulances, None
     else:
         return None, "Error"
+
+def login_ambulance(username: str, password: str) -> Tuple[HospitalSchema, str]:
+    # print('ddad')
+    document = db.ambulances.find_one({"$and": [{"username": username}, {"password": password}]})
+
+    # print('asas31312')
+    if document:
+        document['hospital_id'] = ObjectId(document['hospital_id'])
+        resp = AmbulanceSchema(**document)
+        return resp, None
+    else:
+        return None, "Login failed"

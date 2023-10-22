@@ -64,18 +64,15 @@ export default function Hospital() {
                 //         description: "Please try again.",
                 //     })
                 // }
-                console.log(data.ambulances)
+                // console.log(data.ambulances)
                 setData(data.ambulances);
-                console.log('done')
+                // console.log('done')
               })
               .catch(error => {
                 console.error('Error fetching data:', error);
               });
         }
     }, [])
-    useEffect(() => {
-        console.log(data);
-    }, [data])
 
     const mapsKey = 'AIzaSyDaqXZbNjupisUXM6JumLd-ekhXgIf5P5w';
 
@@ -99,14 +96,15 @@ export default function Hospital() {
             return 'orange';
         }
     }
+
     return (
         <div className='max-w-screen max-h-screen'>
             {/* Navbar */}
             <div className="w-full border h-16 bg-gradient-to-r from-[#DF059C] via-[#7749C1] to-[#00B1FF] z-10 fixed">
                 <div className='flex items-center justify-between h-full pl-12 pr-4'>
-                    <div className='flex items-center'>
-                    <img className='w-20 h-12' src={ambulance} alt="Ambulance" />
-                    <p className='font-bold text-2xl text-white'>MedHelp</p>
+                    <div className='flex items-center hover:cursor-pointer' onClick={() => {nav('/')}}>
+                        <img className='w-20 h-12' src={ambulance} alt="Ambulance" />
+                        <p className='font-bold text-2xl text-white'>MedHelp</p>
                     </div>
                     <div className='font-bold text-2xl text-white pr-12'>Hospital</div>
                 </div>
