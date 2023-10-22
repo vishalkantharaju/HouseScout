@@ -61,7 +61,6 @@ class AmbulanceList(MethodView):
             club.history = str(club.history)
             resp.append((GetAmbResponse(id=str(club.id), unit = club.unit, loc = [club.loc.x, club.loc.y], status = club.status, hospital_id = str(club.hospital_id), history = club.history, reported = club.reported, ))) 
 
-        # print(resp)
         resp = GetAmbulanceResponse(ambulances = resp, success=True).dict()
         return jsonify(resp), 200
     
