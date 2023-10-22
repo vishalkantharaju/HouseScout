@@ -111,7 +111,7 @@ export default function Ambulance() {
                 </div>
             </div>
         </div>
-        <div className="flex pt-16 w-5/12 flex-col">
+        <div className="flex mt-14 pt-16 w-5/12 flex-col">
             <div className = "ml-40 mt-28 w-56">
                 <div className="cursor-pointer hover:bg-[#00B1FF] flex h-28 border-4 border-[#00B1FF] bg-[#CCD6E1] rounded-lg items-center justify-center">
                     <div className="font-bold text-2xl text-[#0F284C] text-center">
