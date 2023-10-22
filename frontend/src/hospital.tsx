@@ -38,7 +38,23 @@ export default function Hospital() {
           map.panTo(startingLocation);
         }
     };
+    useEffect(() => {
+        myAsyncFunction();
+    })
+    function sleep(ms: number): Promise<void> {
+        return new Promise((resolve) => {
+          setTimeout(resolve, ms);
+        });
+      }
+      const [now, setNow] = useState(false);
+      // Usage
+      async function myAsyncFunction() {
+        console.log("Start");
+        await sleep(2000); // Wait for 2 seconds (2000 milliseconds)
+        console.log("End");
+        setNow(true);
 
+      }
     // State to store car positions
     const [carPosition_1, setCarPosition_1] = useState([
         { lat: startingLat, lng: startingLong }, // Example car position
@@ -178,7 +194,7 @@ export default function Hospital() {
                             zoom={13}
                             options={mapOptions}
                         >
-                        {/* {carPosition_1.map((position, index) => (
+                        {now && carPosition_1.map((position, index) => (
                                 <Marker
                                     key={index}
                                     position={position}
@@ -187,7 +203,7 @@ export default function Hospital() {
                                         scaledSize: new google.maps.Size(60, 40),
                                     }}
                                 />
-                            ))} */}
+                            ))}
                             {/* Your map content, markers, etc. go here */}
                         </GoogleMap>
                         {/* <button className='absolute' onClick={resetToStartingLocation}>Return to Starting Location</button> */}

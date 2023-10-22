@@ -1,4 +1,4 @@
-import ambulance from './assets/amb_icon.png'
+import ambulance from './assets/medhelp_icon_transparent.png'
 import { Input } from "@/components/ui/input"
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
